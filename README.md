@@ -10,6 +10,7 @@ Builds using the caddy builder image to add the Coraza plugin.  See `build_and_r
 ## configuration
 
 - `order coraza_waf first` must be the first global directive for Caddy
+- `coraza.conf` should be loaded before the standard rulesets especially when overriding vars like `tx.allowed_methods`
 - `coraza_waf` block can be added to any site
 - `load_owasp_crs` automatically loads the ModSecurity Core Rule Set (CRS)
 = `directives` includes various defaults, but they are in report-only mode so set `SecRuleEngine On` at the end

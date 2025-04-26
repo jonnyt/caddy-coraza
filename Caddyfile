@@ -8,9 +8,9 @@
 		load_owasp_crs
 		directives `
 		Include @coraza.conf-recommended
+		Include /etc/caddy/coraza.conf
 		Include @crs-setup.conf.example
 		Include @owasp_crs/*.conf
-		Include /etc/caddy/coraza.conf
 		SecRuleEngine On
 		`
 	}
