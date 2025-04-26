@@ -11,7 +11,7 @@ on:
     - cron: '25 17 * * 2'  # Weekly update
 
 env:
-  IMAGE_NAME: caddy-coraza:2.10
+  IMAGE_NAME: caddy-coraza
   BASE_IMAGE_DOCKERFILE: ./Dockerfile
   DOCKERHUB_USERNAME: jonathont
 
