@@ -1,0 +1,24 @@
+{
+	order coraza_waf first
+	auto_https disable_redirects
+}
+
+:80 {
+	coraza_waf {
+		load_owasp_crs
+		directives `
+		Include @coraza.conf-recommended
+		Include @crs-setup.conf.example
+		Include @owasp_crs/*.conf
+		Include /etc/caddy/coraza.conf
+		SecRuleEngine On
+		`
+	}
+
+	handle_errors 403 {
+		header X-Blocked "true"
+		respond "Your request was blocked."
+	}
+
+	respond "Request passed Coraza WAF."
+}
