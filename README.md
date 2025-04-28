@@ -51,9 +51,9 @@ SecRule REQUEST_URI "@beginsWith /api/system-config" \
 
 ### Overriding Specific Rules
 
-If Coraza breaks an application we can override the default ruleset.
+If Coraza breaks an application we can override the [coraza core rulest](https://github.com/coreruleset/coreruleset).
 
-In this example the WAF is blocking file access to `.profile` at our endpoint `/api/system-config`:
+In this example the WAF is blocking file access to `.profile` at the endpoint `/api/system-config`:
 
 ```json
 {
@@ -64,7 +64,7 @@ In this example the WAF is blocking file access to `.profile` at our endpoint `/
 }
 ```
 
-We can turn the rule off globally adding the following line toward the end of our ruleset:
+Check the [coraza core rulest](https://github.com/coreruleset/coreruleset) and determine if rule ID `930120` can be disabled. To disable the rule globally add the following line toward the end of the `directive` block or in a custom `.conf` file:
 
 ```
 SecRuleUpdateActionById 930120 "nolog,pass,ctl:ruleRemoveById=930120"
@@ -75,7 +75,7 @@ Where:
 - `nolog,pass` = don't log and allow
 - `ctl:ruleRemoveById=930120` = remove the rule
 
-We can also be more specific and just disable the rule for a specific endpoint.  If we want to permit access to `/api/system-config` or any other endpoint we can use a location matcher:
+Alternatively disable the rule for a specific endpoint.  If you want to permit access to `/api/system-config` or any other endpoint you can use a location matcher:
 
 ```
 SecRule REQUEST_URI "@beginsWith /api/system-config" \
