@@ -108,5 +108,6 @@ curl -v http://localhost/\?q\=select+from
 ## Reference
 
 - [coraza.conf-recommended](https://github.com/corazawaf/coraza/blob/main/coraza.conf-recommended)
+- [crs-setup.conf.example](https://github.com/coreruleset/coreruleset/blob/main/crs-setup.conf.example)
 - [coraza core rulest](https://github.com/coreruleset/coreruleset)
 - [ModSecurity Reference](https://github.com/owasp-modsecurity/ModSecurity/wiki/Reference-Manual-(v3.x)#user-content-SecAction)
