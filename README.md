@@ -17,7 +17,7 @@ Builds using the caddy builder image to add the Coraza plugin.  See `build_and_r
 
 ### Overriding Specific Variables
 
-Variables found within the (coraza.conf-recommended)[https://github.com/corazawaf/coraza/blob/main/coraza.conf-recommended] can be overridden either using `directives` or loading a configuraiton file.
+Variables found within the [coraza.conf-recommended](https://github.com/corazawaf/coraza/blob/main/coraza.conf-recommended) can be overridden either using `directives` or loading a configuraiton file.
 
 This should be done after loading the recommend configuration and before applying rulesets.
 
@@ -107,4 +107,6 @@ curl -v http://localhost/\?q\=select+from
 
 ## Reference
 
-- (ModSecurity Reference)[https://github.com/owasp-modsecurity/ModSecurity/wiki/Reference-Manual-(v3.x)#user-content-SecAction]
+- [coraza.conf-recommended](https://github.com/corazawaf/coraza/blob/main/coraza.conf-recommended)
+- [coraza core rulest](https://github.com/coreruleset/coreruleset)
+- [ModSecurity Reference](https://github.com/owasp-modsecurity/ModSecurity/wiki/Reference-Manual-(v3.x)#user-content-SecAction)
