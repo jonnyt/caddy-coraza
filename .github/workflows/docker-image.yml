@@ -29,7 +29,7 @@ jobs:
 
       - name: Set base image
         run: |
-          echo "BASE_IMAGE=$(grep -E 'FROM.+AS\s+caddy-coraza' ./Dockerfile | awk '{print $2}' ${{ env.BASE_IMAGE_DOCKERFILE}} | awk '{print $2}')" >> "$GITHUB_ENV"
+          echo "BASE_IMAGE=$(grep -E 'FROM.+AS\s+caddy-coraza' ./Dockerfile | awk '{print $2}')" >> "$GITHUB_ENV"
 
       - name: Debug
         run: |
