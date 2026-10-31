@@ -5,7 +5,13 @@ run on port 80 and implements the recommended OWASP sec policy.
 
 ## Building
 
-Builds using the caddy builder image to add the Coraza plugin.  See `build_and_run.sh`.
+A pre-built image is available on Docker Hub:
+
+```shell
+docker pull jonathont/caddy-coraza:latest
+```
+
+To build locally (multi-arch `linux/amd64` + `linux/arm64`), run `build_and_run.sh`.  This uses `docker buildx` and keeps the image local (no push).
 
 ## Configuration
 
@@ -13,11 +19,11 @@ Builds using the caddy builder image to add the Coraza plugin.  See `build_and_r
 - `coraza.conf` should be loaded before the standard rulesets especially when overriding vars like `tx.allowed_methods`
 - `coraza_waf` block can be added to any site
 - `load_owasp_crs` automatically loads the ModSecurity Core Rule Set (CRS)
-= `directives` includes various defaults, but they are in report-only mode so set `SecRuleEngine On` at the end
+- `directives` includes various defaults, but they are in report-only mode so set `SecRuleEngine On` at the end
 
 ### Overriding Specific Variables
 
-Variables found within the [coraza.conf-recommended](https://github.com/corazawaf/coraza/blob/main/coraza.conf-recommended) can be overridden either using `directives` or loading a configuraiton file.
+Variables found within the [coraza.conf-recommended](https://github.com/corazawaf/coraza/blob/main/coraza.conf-recommended) can be overridden either using `directives` or loading a configuration file.
 
 This should be done after loading the recommend configuration and before applying rulesets.
 
@@ -51,7 +57,7 @@ SecRule REQUEST_URI "@beginsWith /api/system-config" \
 
 ### Overriding Specific Rules
 
-If Coraza breaks an application the [coraza core rulest](https://github.com/coreruleset/coreruleset) can be overriden.
+If Coraza breaks an application the [coraza core ruleset](https://github.com/coreruleset/coreruleset) can be overriden.
 
 In this example the WAF is blocking file access to `.profile` at the endpoint `/api/system-config`:
 
@@ -64,11 +70,11 @@ In this example the WAF is blocking file access to `.profile` at the endpoint `/
 }
 ```
 
-Check the [coraza core rulest](https://github.com/coreruleset/coreruleset) and determine if rule ID `930120` can be disabled. To disable the rule globally add the following line toward the end of the `directives` block or in a custom `.conf` file:
+Check the [coraza core ruleset](https://github.com/coreruleset/coreruleset) and determine if rule ID `930120` can be disabled. To disable the rule globally add the following line toward the end of the `directives` block or in a custom `.conf` file:
 
 ```
 SecRuleUpdateActionById 930120 "nolog,pass,ctl:ruleRemoveById=930120"
-````
+```
 
 Where:
 
@@ -82,7 +88,7 @@ SecRule REQUEST_URI "@beginsWith /api/system-config" \
     "id:1000000,phase:1,pass,nolog,ctl:ruleRemoveById=930120"
 ```
 
-And add this to `directvies` or a configuration file:
+And add this to `directives` or a configuration file:
 
 ```
 directives `
@@ -95,6 +101,14 @@ SecRule REQUEST_URI "@beginsWith /api/system-config" "id:1000000,phase:1,pass,no
 SecRuleEngine On
 `
 ```
+
+## Examples
+
+The `examples/` directory contains real-world configurations:
+
+- `examples/Caddyfile` — reverse proxy config with WebSocket bypass and reusable WAF snippet, based on an Immich deployment
+- `examples/coraza.conf` — custom rules including Immich API and Mastodon federation overrides
+- `examples/coraza-defult-conf-override.conf` — overrides to default CRS variables (HTTP methods, upload size, content types)
 
 ## Testing
 
@@ -109,5 +123,5 @@ curl -v http://localhost/\?q\=select+from
 
 - [coraza.conf-recommended](https://github.com/corazawaf/coraza/blob/main/coraza.conf-recommended)
 - [crs-setup.conf.example](https://github.com/coreruleset/coreruleset/blob/main/crs-setup.conf.example)
-- [coraza core rulest](https://github.com/coreruleset/coreruleset)
+- [coraza core ruleset](https://github.com/coreruleset/coreruleset)
 - [ModSecurity Reference](https://github.com/owasp-modsecurity/ModSecurity/wiki/Reference-Manual-(v3.x)#user-content-SecAction)
