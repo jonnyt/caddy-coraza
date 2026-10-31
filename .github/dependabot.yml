@@ -6,3 +6,10 @@ updates:
       interval: "daily"
     assignees:
       - "jonnyt"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "jonnyt"
