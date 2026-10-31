@@ -44,7 +44,7 @@ jobs:
 
       - name: Check if update available
         id: check
-        uses: ClementTsang/docker-check-base-image-diff@d8cf79d3bcda38fab44bc8c9afa60c4b3dee23de
+        uses: ClementTsang/docker-check-base-image-diff@532795523039171ee8e94cce949a28e4059efaae
         with:
           base-image: docker://${{ env.BASE_IMAGE }}
           derived-image: docker://${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}
