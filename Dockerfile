@@ -1,4 +1,4 @@
-FROM caddy:2.11.8-builder AS builder
+FROM caddy:2.11.9-builder AS builder
 
 WORKDIR /app
 RUN xcaddy build --output caddy \
